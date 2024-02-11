@@ -7,7 +7,7 @@ public class EmployeeResponse {
 
     @Getter
     @Setter
-    private int id;
+    private Long id;
 
     @Getter
     @Setter
