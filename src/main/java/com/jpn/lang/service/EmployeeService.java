@@ -2,10 +2,8 @@ package com.jpn.lang.service;
 
 import com.jpn.lang.entity.Employee;
 import com.jpn.lang.model.request.EmployeePostRequest;
-import com.jpn.lang.model.response.EmployeeResponse;
 
 import java.util.List;
-
 
 public interface EmployeeService {
 
@@ -13,4 +11,5 @@ public interface EmployeeService {
 
     List<Employee> getEmployee(Long employeeId);
 
+    void deleteEmployee(Long id);
 }

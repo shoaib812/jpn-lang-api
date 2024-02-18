@@ -5,6 +5,7 @@ import com.jpn.lang.model.request.EmployeePostRequest;
 import com.jpn.lang.model.response.EmployeeResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.jpn.lang.service.EmployeeServiceImpl;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -50,5 +51,11 @@ public class EmployeeController implements EmployeeControllerApi {
         employeeResponse.setAddress(employee.getAddress());
 
         return employeeResponse;
+    }
+
+    @Override
+    public ResponseEntity<?> deleteEmployee(Long id) {
+        employeeService.deleteEmployee(id);
+        return ResponseEntity.ok("Delete...");
     }
 }
