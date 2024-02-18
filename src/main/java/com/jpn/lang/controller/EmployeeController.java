@@ -1,12 +1,13 @@
 package com.jpn.lang.controller;
 
-
 import com.jpn.lang.entity.Employee;
 import com.jpn.lang.model.request.EmployeePostRequest;
 import com.jpn.lang.model.response.EmployeeResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
 import com.jpn.lang.service.EmployeeServiceImpl;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +51,4 @@ public class EmployeeController implements EmployeeControllerApi {
 
         return employeeResponse;
     }
-
-
 }

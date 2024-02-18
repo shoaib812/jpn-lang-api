@@ -27,4 +27,4 @@ replay_pid*
 jpn-lang-api.*
 
 target
-api-demo.imi
+*.iml
