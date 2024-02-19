@@ -44,4 +44,10 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setAddress(employeePostRequest.getAddress());
         return employeeRepository.save(employee);
     }
+
+    public void deleteEmployee(Long id) {
+        if(getEmployee(id) != null) {
+            employeeRepository.deleteById(id);
+        }
+    }
 }
