@@ -24,6 +24,6 @@ public interface EmployeeControllerApi {
     ResponseEntity<?> deleteEmployee(@RequestParam(value = "id") Long id );
 
    @PutMapping
-   public ResponseEntity<?> put(@RequestBody EmployeePutRequest putEmployee, Long id);
+   public EmployeeResponse put(@RequestBody EmployeePutRequest putEmployee, @RequestParam(value="id") Long id);
 
 }

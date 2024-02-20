@@ -57,12 +57,18 @@ public class EmployeeController implements EmployeeControllerApi {
     @Override
     public ResponseEntity<?> deleteEmployee(Long id) {
         employeeService.deleteEmployee(id);
-        return ResponseEntity.ok("Delete...");
+        return ResponseEntity.ok(" Delete...");
     }
 
     @Override
-    public ResponseEntity<?> put(EmployeePutRequest putEmployee, Long id) {
+    public EmployeeResponse put(EmployeePutRequest putEmployee, Long id) {
         Employee employee = employeeService.updateEmployee(putEmployee, id);
-        return ResponseEntity.ok(employee);
+        EmployeeResponse employeeResponse = new EmployeeResponse();
+        employeeResponse.setId(employee.getEmployeeId());
+        employeeResponse.setUsername(employee.getUsername());
+        employeeResponse.setMail(employee.getMail());
+        employeeResponse.setDob(employee.getDob());
+        employeeResponse.setAddress(employee.getAddress());
+        return employeeResponse;
     }
 }
