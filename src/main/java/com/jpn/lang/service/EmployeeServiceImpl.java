@@ -2,11 +2,10 @@ package com.jpn.lang.service;
 
 import com.jpn.lang.entity.Employee;
 import com.jpn.lang.model.request.EmployeePostRequest;
-import com.jpn.lang.model.response.EmployeeResponse;
+import com.jpn.lang.model.request.EmployeePutRequest;
 import com.jpn.lang.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -49,5 +48,27 @@ public class EmployeeServiceImpl implements EmployeeService {
         if(getEmployee(id) != null) {
             employeeRepository.deleteById(id);
         }
+    }
+
+    public Employee updateEmployee(EmployeePutRequest putRequest, Long id) {
+        List<Employee>  employeeList  = getEmployee(id);
+        Employee currentEmployee = null;
+        if(employeeList.size()==1){
+            currentEmployee =  employeeList.get(0);
+            if (putRequest.getUsername() != null) {
+                currentEmployee.setUsername(putRequest.getUsername());
+            }
+            if (putRequest.getMail() != null) {
+                currentEmployee.setMail(putRequest.getMail());
+            }
+            if (putRequest.getMail() != null) {
+                currentEmployee.setDob(putRequest.getDob());
+            }
+            if (putRequest.getAddress() != null) {
+                currentEmployee.setAddress(putRequest.getAddress());
+            }
+            currentEmployee = employeeRepository.save(currentEmployee);
+        }
+        return currentEmployee;
     }
 }

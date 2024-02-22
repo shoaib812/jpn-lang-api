@@ -3,22 +3,14 @@ package com.jpn.lang.model.request;
 import lombok.Getter;
 import lombok.Setter;
 
-public class EmployeePostRequest {
-
-    @Setter
-    @Getter
+@Setter
+@Getter
+public class EmployeePutRequest {
     private String username;
 
-    @Setter
-    @Getter
-    private String email;
+    private String mail;
 
-    @Setter
-    @Getter
     private String dob;
 
-    @Setter
-    @Getter
     private String address;
-
 }

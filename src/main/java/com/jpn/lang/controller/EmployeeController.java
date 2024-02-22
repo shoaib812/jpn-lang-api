@@ -2,6 +2,7 @@ package com.jpn.lang.controller;
 
 import com.jpn.lang.entity.Employee;
 import com.jpn.lang.model.request.EmployeePostRequest;
+import com.jpn.lang.model.request.EmployeePutRequest;
 import com.jpn.lang.model.response.EmployeeResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.jpn.lang.service.EmployeeServiceImpl;
@@ -56,6 +57,18 @@ public class EmployeeController implements EmployeeControllerApi {
     @Override
     public ResponseEntity<?> deleteEmployee(Long id) {
         employeeService.deleteEmployee(id);
-        return ResponseEntity.ok("Delete...");
+        return ResponseEntity.ok(" Delete...");
+    }
+
+    @Override
+    public EmployeeResponse put(EmployeePutRequest putEmployee, Long id) {
+        Employee employee = employeeService.updateEmployee(putEmployee, id);
+        EmployeeResponse employeeResponse = new EmployeeResponse();
+        employeeResponse.setId(employee.getEmployeeId());
+        employeeResponse.setUsername(employee.getUsername());
+        employeeResponse.setMail(employee.getMail());
+        employeeResponse.setDob(employee.getDob());
+        employeeResponse.setAddress(employee.getAddress());
+        return employeeResponse;
     }
 }
