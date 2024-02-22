@@ -54,8 +54,8 @@ public class EmployeeController implements EmployeeControllerApi {
     }
 
     @Override
-    public ResponseEntity<?> deleteEmployee(Long id) {
+    public void deleteEmployee(Long id) {
         employeeService.deleteEmployee(id);
-        return ResponseEntity.ok("Delete...");
+        System.out.println(" Employee deleted id "+id);
     }
 }
