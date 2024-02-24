@@ -29,7 +29,7 @@ public interface EmployeeControllerApi {
                     )
             }
     )
-    @PostMapping(value = "/employees", consumes = "application/json", produces = "application/json")
+    @PostMapping
     EmployeeResponse addEmployee(@RequestBody EmployeePostRequest employeePostRequest);
 
 
@@ -50,9 +50,38 @@ public interface EmployeeControllerApi {
     @GetMapping
     ArrayList<EmployeeResponse> getEmployees(@RequestParam(value = "id", required = false) Long id);
 
+
+    @Operation(
+            tags = "Delete Employees",
+            description = "Delete Employees",
+            responses = {
+                    @ApiResponse(
+                            description = "Success",
+                            responseCode = "200"
+                    ),
+                    @ApiResponse(
+                            description = "Data Not Found",
+                            responseCode = "404"
+                    )
+            }
+    )
     @DeleteMapping
     Long deleteEmployee(@RequestParam(value = "id") Long id );
 
+    @Operation(
+            tags = "UPDATE Employees",
+            description = "Update Employees",
+            responses = {
+                    @ApiResponse(
+                            description = "Success",
+                            responseCode = "200"
+                    ),
+                    @ApiResponse(
+                            description = "Data Not Found",
+                            responseCode = "404"
+                    )
+            }
+    )
    @PutMapping
    public EmployeeResponse put(@RequestBody EmployeePutRequest putEmployee, @RequestParam(value="id") Long id);
 }
