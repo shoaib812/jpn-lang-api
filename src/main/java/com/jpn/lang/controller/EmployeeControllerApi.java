@@ -3,7 +3,6 @@ package com.jpn.lang.controller;
 import com.jpn.lang.model.request.EmployeePostRequest;
 import com.jpn.lang.model.request.EmployeePutRequest;
 import com.jpn.lang.model.response.EmployeeResponse;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,9 +20,8 @@ public interface EmployeeControllerApi {
     ArrayList<EmployeeResponse> getEmployees(@RequestParam(value = "id", required = false) Long id);
 
     @DeleteMapping
-    ResponseEntity<?> deleteEmployee(@RequestParam(value = "id") Long id );
+    Long deleteEmployee(@RequestParam(value = "id") Long id );
 
    @PutMapping
    public EmployeeResponse put(@RequestBody EmployeePutRequest putEmployee, @RequestParam(value="id") Long id);
-
 }
