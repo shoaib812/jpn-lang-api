@@ -1,4 +1,4 @@
-# jpn-lang-api
+# nihongo-api
 # http://localhost:8082/swagger-ui/index.html
 
 # What is swagger-ui 
