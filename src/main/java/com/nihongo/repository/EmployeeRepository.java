@@ -1,6 +1,6 @@
-package com.jpn.lang.repository;
+package com.nihongo.repository;
 
-import com.jpn.lang.entity.Employee;
+import com.nihongo.entity.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

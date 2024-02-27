@@ -1,4 +1,4 @@
-package com.jpn.lang.config;
+package com.nihongo.config;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Contact;
@@ -8,13 +8,13 @@ import io.swagger.v3.oas.annotations.servers.Server;
 
 @OpenAPIDefinition(
     info = @Info(
-            title = "JPN LANG",
+            title = "NIHONGO API",
             description = "Doing CRUD Operation",
-            summary = "This is JAPN LANG api",
+            summary = "This is NIHONGO api",
             termsOfService = "T&C",
             contact = @Contact(
                     name = "ProgRank",
-                    email = "help.jpnlang@gmail.com"
+                    email = "help.nihongo@gmail.com"
             ),
             license = @License (
                     name = "Your License No"

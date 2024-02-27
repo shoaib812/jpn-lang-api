@@ -1,4 +1,4 @@
-package com.jpn.lang.entity;
+package com.nihongo.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

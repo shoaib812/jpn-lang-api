@@ -1,8 +1,8 @@
-package com.jpn.lang.controller;
+package com.nihongo.controller;
 
-import com.jpn.lang.model.request.EmployeePostRequest;
-import com.jpn.lang.model.request.EmployeePutRequest;
-import com.jpn.lang.model.response.EmployeeResponse;
+import com.nihongo.model.request.EmployeePostRequest;
+import com.nihongo.model.request.EmployeePutRequest;
+import com.nihongo.model.response.EmployeeResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.web.bind.annotation.DeleteMapping;

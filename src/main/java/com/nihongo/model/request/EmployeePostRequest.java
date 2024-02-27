@@ -1,4 +1,4 @@
-package com.jpn.lang.model.request;
+package com.nihongo.model.request;
 
 import lombok.Getter;
 import lombok.Setter;

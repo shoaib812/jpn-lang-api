@@ -1,10 +1,6 @@
 # nihongo-api
+Swagger URL
 # http://localhost:8082/swagger-ui/index.html
-
-# What is swagger-ui 
-- Swagger-ui is a tool that provides a visual representation of APIs and their documentation.
-- It allows users to visualize and interact with API resources without needing to know the implementation logic. 
-- View a visual representation of the API and its documentation
-- Try out API calls in the browser
-- See the available end-points and allow calls to each end-point
-- Test your API endpoints
+The line you provided appears to be a URL for accessing a Swagger UI interface running locally on a server.
+Swagger UI is a tool that allows you to visualize and interact with the APIs described in a Swagger/OpenAPI specification
+localhost means we need a server on running on locally on our machine at port '8082' serving the swagger ui.

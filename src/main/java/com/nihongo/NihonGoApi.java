@@ -1,14 +1,14 @@
-package com.jpn.lang;
+package com.nihongo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class JpnLangApiDemo {
+public class NihonGoApi {
 
     public static void main(String[] args) {
 
-        SpringApplication.run(JpnLangApiDemo.class, args);
+        SpringApplication.run(NihonGoApi.class, args);
 
     }
 }
