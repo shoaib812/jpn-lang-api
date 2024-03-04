@@ -1,9 +1,9 @@
-package com.jpn.lang.service;
+package com.nihongo.service;
 
-import com.jpn.lang.entity.Employee;
-import com.jpn.lang.model.request.EmployeePostRequest;
-import com.jpn.lang.model.request.EmployeePutRequest;
-import com.jpn.lang.repository.EmployeeRepository;
+import com.nihongo.entity.Employee;
+import com.nihongo.repository.EmployeeRepository;
+import com.nihongo.model.request.EmployeePostRequest;
+import com.nihongo.model.request.EmployeePutRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.util.ArrayList;

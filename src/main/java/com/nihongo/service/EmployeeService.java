@@ -1,8 +1,8 @@
-package com.jpn.lang.service;
+package com.nihongo.service;
 
-import com.jpn.lang.entity.Employee;
-import com.jpn.lang.model.request.EmployeePostRequest;
-import com.jpn.lang.model.request.EmployeePutRequest;
+import com.nihongo.entity.Employee;
+import com.nihongo.model.request.EmployeePostRequest;
+import com.nihongo.model.request.EmployeePutRequest;
 
 import java.util.List;
 

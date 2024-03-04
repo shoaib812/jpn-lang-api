@@ -1,11 +1,11 @@
-package com.jpn.lang.controller;
+package com.nihongo.controller;
 
-import com.jpn.lang.entity.Employee;
-import com.jpn.lang.model.request.EmployeePostRequest;
-import com.jpn.lang.model.request.EmployeePutRequest;
-import com.jpn.lang.model.response.EmployeeResponse;
+import com.nihongo.entity.Employee;
+import com.nihongo.model.response.EmployeeResponse;
+import com.nihongo.service.EmployeeServiceImpl;
+import com.nihongo.model.request.EmployeePostRequest;
+import com.nihongo.model.request.EmployeePutRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.jpn.lang.service.EmployeeServiceImpl;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
 
-@RequestMapping("/employees")
 @RestController
+@RequestMapping("/employees")
 public class EmployeeController implements EmployeeControllerApi {
 
     @Autowired
