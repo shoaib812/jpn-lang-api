@@ -23,10 +23,6 @@ public interface EmployeeControllerApi {
                             description = "Success",
                             responseCode = "200"
                     ),
-                    @ApiResponse(
-                            description = "Data Not Found",
-                            responseCode = "404"
-                    )
             }
     )
     @PostMapping
