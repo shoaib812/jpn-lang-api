@@ -21,6 +21,20 @@ public class EmployeeController implements EmployeeControllerApi {
     private EmployeeServiceImpl employeeService;
 
     @Override
+    public EmployeeResponse addEmployee(@RequestBody EmployeePostRequest employeePostRequest) {
+
+        Employee employee = employeeService.saveEmployee(employeePostRequest);
+        EmployeeResponse employeeResponse = new EmployeeResponse();
+        employeeResponse.setId(employee.getEmployeeId());
+        employeeResponse.setUsername(employee.getUsername());
+        employeeResponse.setMail(employee.getMail());
+        employeeResponse.setDob(employee.getDob());
+        employeeResponse.setAddress(employee.getAddress());
+
+        return employeeResponse;
+    }
+
+    @Override
     public ArrayList<EmployeeResponse> getEmployees(Long id) {
 
         List<Employee> employeeList = employeeService.getEmployee(id);
@@ -37,20 +51,6 @@ public class EmployeeController implements EmployeeControllerApi {
             employeeResponseList.add(employeeResponse);
         }
         return employeeResponseList;
-    }
-
-    @Override
-    public EmployeeResponse addEmployee(@RequestBody EmployeePostRequest employeePostRequest) {
-
-        Employee employee = employeeService.saveEmployee(employeePostRequest);
-        EmployeeResponse employeeResponse = new EmployeeResponse();
-        employeeResponse.setId(employee.getEmployeeId());
-        employeeResponse.setUsername(employee.getUsername());
-        employeeResponse.setMail(employee.getMail());
-        employeeResponse.setDob(employee.getDob());
-        employeeResponse.setAddress(employee.getAddress());
-
-        return employeeResponse;
     }
 
     @Override

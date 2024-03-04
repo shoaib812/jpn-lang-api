@@ -22,10 +22,6 @@ public interface EmployeeControllerApi {
                     @ApiResponse(
                             description = "Success",
                             responseCode = "200"
-                    ),
-                    @ApiResponse(
-                            description = "Data Not Found",
-                            responseCode = "404"
                     )
             }
     )
