@@ -2,7 +2,7 @@ package com.nihongo.controller;
 
 import com.nihongo.entity.Employee;
 import com.nihongo.model.response.EmployeeResponse;
-import com.nihongo.service.EmployeeServiceImpl;
+import com.nihongo.service.EmployeeService;
 import com.nihongo.model.request.EmployeePostRequest;
 import com.nihongo.model.request.EmployeePutRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ import java.util.List;
 public class EmployeeController implements EmployeeControllerApi {
 
     @Autowired
-    private EmployeeServiceImpl employeeService;
+    private EmployeeService employeeService;
 
     @Override
     public EmployeeResponse addEmployee(@RequestBody EmployeePostRequest employeePostRequest) {

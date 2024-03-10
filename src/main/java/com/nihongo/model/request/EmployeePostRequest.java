@@ -1,10 +1,8 @@
 package com.nihongo.model.request;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-@Builder
 public class EmployeePostRequest {
 
     @Setter
