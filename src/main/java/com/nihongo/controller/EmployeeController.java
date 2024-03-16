@@ -2,7 +2,7 @@ package com.nihongo.controller;
 
 import com.nihongo.entity.Employee;
 import com.nihongo.model.response.EmployeeResponse;
-import com.nihongo.service.EmployeeServiceImpl;
+import com.nihongo.service.EmployeeService;
 import com.nihongo.model.request.EmployeePostRequest;
 import com.nihongo.model.request.EmployeePutRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,21 @@ import java.util.List;
 public class EmployeeController implements EmployeeControllerApi {
 
     @Autowired
-    private EmployeeServiceImpl employeeService;
+    private EmployeeService employeeService;
+
+    @Override
+    public EmployeeResponse addEmployee(@RequestBody EmployeePostRequest employeePostRequest) {
+
+        Employee employee = employeeService.saveEmployee(employeePostRequest);
+        EmployeeResponse employeeResponse = new EmployeeResponse();
+        employeeResponse.setId(employee.getEmployeeId());
+        employeeResponse.setUsername(employee.getUsername());
+        employeeResponse.setMail(employee.getMail());
+        employeeResponse.setDob(employee.getDob());
+        employeeResponse.setAddress(employee.getAddress());
+
+        return employeeResponse;
+    }
 
     @Override
     public ArrayList<EmployeeResponse> getEmployees(Long id) {
@@ -40,20 +54,6 @@ public class EmployeeController implements EmployeeControllerApi {
     }
 
     @Override
-    public EmployeeResponse addEmployee(@RequestBody EmployeePostRequest employeePostRequest) {
-
-        Employee employee = employeeService.saveEmployee(employeePostRequest);
-        EmployeeResponse employeeResponse = new EmployeeResponse();
-        employeeResponse.setId(employee.getEmployeeId());
-        employeeResponse.setUsername(employee.getUsername());
-        employeeResponse.setMail(employee.getMail());
-        employeeResponse.setDob(employee.getDob());
-        employeeResponse.setAddress(employee.getAddress());
-
-        return employeeResponse;
-    }
-
-    @Override
     public Long deleteEmployee(Long id) {
         employeeService.deleteEmployee(id);
         System.out.println(" Employee deleted id "+id);
@@ -71,4 +71,5 @@ public class EmployeeController implements EmployeeControllerApi {
         employeeResponse.setAddress(employee.getAddress());
         return employeeResponse;
     }
+
 }
