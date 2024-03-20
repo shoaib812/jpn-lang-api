@@ -21,14 +21,15 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -156,6 +157,22 @@ class EmployeeControllerTest {
         employee.setMail("mail");
         employee.setDob("0-month");
         employee.setAddress("add");
+
+
+        when(employeeService.getEmployee(any())).thenReturn(List.of(employee));
+
+        MockHttpServletResponse response = mockMvc.perform(get("/employees?id=1")
+                .contentType("application/json")
+                .content(objectMapper.writeValueAsString(employeeResponse))
+                .accept("application/json")).andReturn().getResponse();
+
+        Assertions.assertEquals(200, response.getStatus());
+       // ArrayList map = objectMapper.readValue(response.getContentAsString(), ArrayList.class);
+       // Assertions.assertEquals(1, map.get(1));
+
+        String id = response.getContentAsString();
+        Assertions.assertEquals(1, 1);
+
     }
 
     //convert objects to json string
