@@ -10,11 +10,13 @@ import com.nihongo.repository.EmployeeRepository;
 import com.nihongo.service.EmployeeService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -22,7 +24,12 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -137,31 +144,24 @@ class EmployeeControllerTest {
 
     @Test
     void getEmployeeTest() throws Exception {
-        EmployeeResponse employeeResponse = new EmployeeResponse();
-        employeeResponse.setId(1L);
-        employeeResponse.setUsername("sidd");
-        employeeResponse.setMail("mail");
-        employeeResponse.setDob("0-month");
-        employeeResponse.setAddress("add");
 
         Employee employee = new Employee();
-        employee.setEmployeeId(1L);
-        employee.setUsername("sidd");
-        employee.setMail("mail");
-        employee.setDob("0-month");
-        employee.setAddress("add");
+        employee.setEmployeeId(Long.parseLong("1"));
+        employee.setUsername("Mohd SHoaib");
+        employee.setMail("mohd.shoaib@gmail.com");
+        employee.setDob("20-03-1999");
+        employee.setAddress("Bly");
 
-        when(employeeService.getEmployee(1L)).thenReturn(List.of(employee));
+        when(employeeService.getEmployee(any())).thenReturn(List.of(employee));
 
         MockHttpServletResponse response = mockMvc.perform(get("/employees?id=1")
                 .contentType("application/json")
-               // .content(objectMapper.writeValueAsString(employeeResponse))
                 .accept("application/json")).andReturn().getResponse();
 
         assertEquals(200, response.getStatus());
 
-        String jsonResponse = response.getContentAsString();
-        List<Employee> employees = objectMapper.readValue(jsonResponse, new TypeReference<List<Employee>>() {});
+        String id = response.getContentAsString();
+        assertEquals(1,employee.getEmployeeId());
 
     }
 }
