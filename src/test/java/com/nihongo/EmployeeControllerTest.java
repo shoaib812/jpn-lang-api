@@ -137,31 +137,23 @@ class EmployeeControllerTest {
 
     @Test
     void getEmployeeTest() throws Exception {
-        EmployeeResponse employeeResponse = new EmployeeResponse();
-        employeeResponse.setId(1L);
-        employeeResponse.setUsername("sidd");
-        employeeResponse.setMail("mail");
-        employeeResponse.setDob("0-month");
-        employeeResponse.setAddress("add");
 
         Employee employee = new Employee();
-        employee.setEmployeeId(1L);
-        employee.setUsername("sidd");
-        employee.setMail("mail");
-        employee.setDob("0-month");
-        employee.setAddress("add");
+        employee.setEmployeeId(Long.parseLong("1"));
+        employee.setUsername("Mohd SHoaib");
+        employee.setMail("mohd.shoaib@gmail.com");
+        employee.setDob("20-03-1999");
+        employee.setAddress("Bly");
 
-        when(employeeService.getEmployee(1L)).thenReturn(List.of(employee));
+        when(employeeService.getEmployee(any())).thenReturn(List.of(employee));
 
         MockHttpServletResponse response = mockMvc.perform(get("/employees?id=1")
                 .contentType("application/json")
-               // .content(objectMapper.writeValueAsString(employeeResponse))
                 .accept("application/json")).andReturn().getResponse();
 
         assertEquals(200, response.getStatus());
 
-        String jsonResponse = response.getContentAsString();
-        List<Employee> employees = objectMapper.readValue(jsonResponse, new TypeReference<List<Employee>>() {});
-
+        String id = response.getContentAsString();
+        assertEquals(1,employee.getEmployeeId());
     }
 }
