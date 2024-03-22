@@ -22,7 +22,7 @@ public interface EmployeeControllerApi {
                     @ApiResponse(
                             description = "Success",
                             responseCode = "200"
-                    ),
+                    )
             }
     )
     @PostMapping
