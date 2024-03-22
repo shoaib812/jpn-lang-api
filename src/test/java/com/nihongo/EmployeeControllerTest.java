@@ -49,17 +49,17 @@ class EmployeeControllerTest {
     void addEmployeeTest() throws Exception {
 
         EmployeePostRequest employeePostRequest = new EmployeePostRequest();
-        employeePostRequest.setUsername("test-employee");
-        employeePostRequest.setEmail("test-email");
-        employeePostRequest.setDob("0 month");
-        employeePostRequest.setAddress("test-add");
+        employeePostRequest.setUsername("Mohd Shoaib");
+        employeePostRequest.setEmail("mohd.shoaib@gmail.com");
+        employeePostRequest.setDob("20-06-1999");
+        employeePostRequest.setAddress("Bareilly");
 
         Employee employee = new Employee();
         employee.setEmployeeId(Long.parseLong("1"));
-        employee.setUsername("test-employee");
-        employee.setMail("test-email");
-        employee.setDob("0 month");
-        employee.setAddress("test-add");
+        employee.setUsername("Mohd Shoaib");
+        employee.setMail("mohd.shoaib@gmail.com");
+        employee.setDob("20-06-1999");
+        employee.setAddress("Bareilly");
 
         when(employeeService.saveEmployee(any())).thenReturn(employee);
 
@@ -139,7 +139,7 @@ class EmployeeControllerTest {
 
         Employee employee = new Employee();
         employee.setEmployeeId(Long.parseLong("1"));
-        employee.setUsername("Mohd SHoaib");
+        employee.setUsername("Mohd Shoaib");
         employee.setMail("mohd.shoaib@gmail.com");
         employee.setDob("20-03-1999");
         employee.setAddress("Bly");
@@ -155,6 +155,10 @@ class EmployeeControllerTest {
         String jsonResponse = response.getContentAsString();
         List<EmployeeResponse> employees = objectMapper.readValue(jsonResponse, new TypeReference<List<EmployeeResponse>>() {});
         assertEquals(1, employees.get(0).getId());
+        assertEquals("Mohd Shoaib", employees.get(0).getUsername());
+        assertEquals("mohd.shoaib@gmail.com", employees.get(0).getMail());
+        assertEquals("20-03-1999", employees.get(0).getDob());
+        assertEquals("Bly", employees.get(0).getAddress());
 
     }
 }
