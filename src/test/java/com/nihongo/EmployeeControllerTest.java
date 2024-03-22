@@ -2,6 +2,7 @@ package com.nihongo;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jayway.jsonpath.JsonPath;
 import com.nihongo.entity.Employee;
 import com.nihongo.model.request.EmployeePostRequest;
 import com.nihongo.model.request.EmployeePutRequest;
@@ -15,20 +16,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultMatcher;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.jsonPath;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc(addFilters = false)
@@ -149,11 +158,15 @@ class EmployeeControllerTest {
 
         MockHttpServletResponse response = mockMvc.perform(get("/employees?id=1")
                 .contentType("application/json")
+                //.content(objectMapper.writeValueAsString(employeeResponse))
                 .accept("application/json")).andReturn().getResponse();
 
         assertEquals(200, response.getStatus());
 
-        String id = response.getContentAsString();
-        assertEquals(1,employee.getEmployeeId());
+        String jsonResponse = response.getContentAsString();
+        List<EmployeeResponse> employees = objectMapper.readValue(jsonResponse, new TypeReference<List<EmployeeResponse>>() {});
+        assertEquals(1, employees.get(0).getId());
+
+                //assertEquals(1, employees.get(0));
     }
 }
