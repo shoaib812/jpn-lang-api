@@ -16,6 +16,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
     private EmployeeRepository employeeRepository;
 
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
+    }
+
     @Override
     public List<Employee> getEmployee(Long id) {
 
@@ -35,7 +38,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee saveEmployee(EmployeePostRequest employeePostRequest) {
-
         Employee employee = new Employee();
         employee.setUsername(employeePostRequest.getUsername());
         employee.setMail(employeePostRequest.getEmail());
