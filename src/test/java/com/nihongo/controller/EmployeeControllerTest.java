@@ -1,8 +1,7 @@
-package com.nihongo;
+package com.nihongo.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jayway.jsonpath.JsonPath;
 import com.nihongo.entity.Employee;
 import com.nihongo.model.request.EmployeePostRequest;
 import com.nihongo.model.request.EmployeePutRequest;
@@ -16,28 +15,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultMatcher;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.jsonPath;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc(addFilters = false)
@@ -59,17 +49,17 @@ class EmployeeControllerTest {
     void addEmployeeTest() throws Exception {
 
         EmployeePostRequest employeePostRequest = new EmployeePostRequest();
-        employeePostRequest.setUsername("test-employee");
-        employeePostRequest.setEmail("test-email");
-        employeePostRequest.setDob("0 month");
-        employeePostRequest.setAddress("test-add");
+        employeePostRequest.setUsername("Mohd Shoaib");
+        employeePostRequest.setEmail("mohd.shoaib@gmail.com");
+        employeePostRequest.setDob("20-06-1999");
+        employeePostRequest.setAddress("Bareilly");
 
         Employee employee = new Employee();
         employee.setEmployeeId(Long.parseLong("1"));
-        employee.setUsername("test-employee");
-        employee.setMail("test-email");
-        employee.setDob("0 month");
-        employee.setAddress("test-add");
+        employee.setUsername("Mohd Shoaib");
+        employee.setMail("mohd.shoaib@gmail.com");
+        employee.setDob("20-06-1999");
+        employee.setAddress("Bareilly");
 
         when(employeeService.saveEmployee(any())).thenReturn(employee);
 
@@ -80,8 +70,8 @@ class EmployeeControllerTest {
 
         assertEquals(200, response.getStatus());
 
-        Map map = objectMapper.readValue(response.getContentAsString(), Map.class);
-        assertEquals(1,map.get("id"));
+        EmployeeResponse employeeResponse = objectMapper.readValue(response.getContentAsString(), EmployeeResponse.class);
+        assertEquals(1,employeeResponse.getId());
 
     }
 
@@ -109,20 +99,13 @@ class EmployeeControllerTest {
 
         assertEquals(200, response.getStatus());
 
-        Map map = objectMapper.readValue(response.getContentAsString(), Map.class);
-        assertEquals(1,map.get("id"));
+        EmployeeResponse employeeResponse = objectMapper.readValue(response.getContentAsString(), EmployeeResponse.class);
+        assertEquals(1, employeeResponse.getId());
 
     }
 
     @Test
     void deleteEmployeeTest() throws Exception {
-        EmployeeResponse employeeResponse = new EmployeeResponse();
-        employeeResponse.setId(Long.parseLong("1"));
-        employeeResponse.setUsername("Sidd");
-        employeeResponse.setMail("mohd.shoaib@gmail.com");
-        employeeResponse.setDob("20-06-1990");
-        employeeResponse.setAddress("Bareilly");
-
         Employee employee = new Employee();
         employee.setEmployeeId(Long.parseLong("1"));
         employee.setUsername("Sidd");
@@ -134,7 +117,6 @@ class EmployeeControllerTest {
 
         MockHttpServletResponse response = mockMvc.perform(delete("/employees?id=1")
                 .contentType("application/json")
-                .content(objectMapper.writeValueAsString(employeeResponse))
                 .accept("application/json")).andReturn().getResponse();
 
         assertEquals(200, response.getStatus());
@@ -149,7 +131,7 @@ class EmployeeControllerTest {
 
         Employee employee = new Employee();
         employee.setEmployeeId(Long.parseLong("1"));
-        employee.setUsername("Mohd SHoaib");
+        employee.setUsername("Mohd Shoaib");
         employee.setMail("mohd.shoaib@gmail.com");
         employee.setDob("20-03-1999");
         employee.setAddress("Bly");
@@ -157,16 +139,18 @@ class EmployeeControllerTest {
         when(employeeService.getEmployee(any())).thenReturn(List.of(employee));
 
         MockHttpServletResponse response = mockMvc.perform(get("/employees?id=1")
-                .contentType("application/json")
-                //.content(objectMapper.writeValueAsString(employeeResponse))
                 .accept("application/json")).andReturn().getResponse();
 
         assertEquals(200, response.getStatus());
 
         String jsonResponse = response.getContentAsString();
-        List<EmployeeResponse> employees = objectMapper.readValue(jsonResponse, new TypeReference<List<EmployeeResponse>>() {});
+        List<EmployeeResponse> employees = objectMapper.readValue(jsonResponse, new TypeReference<>() {
+        });
         assertEquals(1, employees.get(0).getId());
+        assertEquals("Mohd Shoaib", employees.get(0).getUsername());
+        assertEquals("mohd.shoaib@gmail.com", employees.get(0).getMail());
+        assertEquals("20-03-1999", employees.get(0).getDob());
+        assertEquals("Bly", employees.get(0).getAddress());
 
-                //assertEquals(1, employees.get(0));
     }
 }
