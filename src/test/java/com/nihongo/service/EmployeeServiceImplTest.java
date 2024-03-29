@@ -18,6 +18,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -60,21 +61,12 @@ import static org.mockito.Mockito.when;
 
     @Test
     void deleteEmployee() {
-        Employee employee = new Employee();
-        employee.setEmployeeId(1L);
-        employee.setUsername("Mohd Shoaib");
-        employee.setMail("mohd.shoaib@gmail.com");
-        employee.setDob("20-03-1999");
-        employee.setAddress("Bly");
-
-        employeeService.deleteEmployee(employee.getEmployeeId());
-
+        doNothing().when(employeeRepository).deleteById(1L);
+        employeeService.deleteEmployee(1L);
         assertNotNull(employeeService);
-
         // Verify that the deleteById method of the repository was called with the correct argument
         verify(employeeRepository).deleteById(1L);
     }
-
     @Test
     void saveEmployeeTest() {
         EmployeePostRequest employeePostRequest = new EmployeePostRequest();
@@ -95,7 +87,7 @@ import static org.mockito.Mockito.when;
         Employee employeeResponse = employeeService.saveEmployee(employeePostRequest);
 
         assertNotNull(employeeResponse);
-        assertEquals(1L, employeeResponse.getEmployeeId()); // Assuming you're comparing with a long value
+        assertEquals(1L, employeeResponse.getEmployeeId());
         assertEquals("Mohd Shoaib", employeeResponse.getUsername());
         assertEquals("mohd.shoaib@gmail.com", employeeResponse.getMail());
         assertEquals("20-03-1999", employeeResponse.getDob());
@@ -103,15 +95,23 @@ import static org.mockito.Mockito.when;
      }
 
     @Test
-    void updateEmployee() {
-        Employee employee = new Employee();
-        employee.setEmployeeId(1L);
-        employee.setUsername("Mohd Shoaib");
-        employee.setMail("mohd.shoaib@gmail.com");
-        employee.setDob("20-03-1999");
-        employee.setAddress("Bly");
+    void updateEmployeeTest() {
+        Employee existingEmployee = new Employee();
+        existingEmployee.setEmployeeId(1L);
+        existingEmployee.setUsername("Mohd Shoaib");
+        existingEmployee.setMail("mohd.shoaib@gmail.com");
+        existingEmployee.setDob("20-03-1999");
+        existingEmployee.setAddress("Bly");
 
-        when(employeeRepository.findById(any())).thenReturn(Optional.of(employee));
+        Employee updatedEmployee = new Employee();
+        updatedEmployee.setEmployeeId(1L);
+        updatedEmployee.setUsername("Sidd_Updated");
+        updatedEmployee.setMail("mohd.shoaib_Updated@gmail.com");
+        updatedEmployee.setDob("20-06-1990");
+        updatedEmployee.setAddress("Updated_Bareilly");
+
+        when(employeeRepository.findById(1L)).thenReturn(Optional.of(existingEmployee));
+        when(employeeRepository.save(any(Employee.class))).thenReturn(updatedEmployee);
 
         EmployeePutRequest employeePutRequest = new EmployeePutRequest();
         employeePutRequest.setUsername("Sidd_Updated");
@@ -119,14 +119,13 @@ import static org.mockito.Mockito.when;
         employeePutRequest.setDob("20-06-1990");
         employeePutRequest.setAddress("Updated_Bareilly");
 
-        when(employeeRepository.save(any(Employee.class))).thenReturn(employee);
-
         Employee employeePutResponse = employeeService.updateEmployee(employeePutRequest, 1L);
 
+        verify(employeeRepository, times(1)).findById(1L);
         verify(employeeRepository, times(1)).save(any(Employee.class));
 
         assertNotNull(employeePutResponse);
-        assertEquals(1L, employeePutResponse.getEmployeeId()); // Assuming you're comparing with a long value
+        assertEquals(1L, employeePutResponse.getEmployeeId());
         assertEquals("Sidd_Updated", employeePutResponse.getUsername());
         assertEquals("mohd.shoaib_Updated@gmail.com", employeePutResponse.getMail());
         assertEquals("20-06-1990", employeePutResponse.getDob());
