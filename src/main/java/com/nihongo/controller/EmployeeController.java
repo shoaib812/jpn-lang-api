@@ -1,10 +1,10 @@
 package com.nihongo.controller;
 
 import com.nihongo.entity.Employee;
-import com.nihongo.model.response.EmployeeResponse;
-import com.nihongo.service.EmployeeService;
 import com.nihongo.model.request.EmployeePostRequest;
 import com.nihongo.model.request.EmployeePutRequest;
+import com.nihongo.model.response.EmployeeResponse;
+import com.nihongo.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +17,7 @@ import java.util.List;
 @RequestMapping("/employees")
 public class EmployeeController implements EmployeeControllerApi {
 
+   // @SuppressWarnings("java:S6813")
     @Autowired
     private EmployeeService employeeService;
 
@@ -53,6 +54,7 @@ public class EmployeeController implements EmployeeControllerApi {
         return employeeResponseList;
     }
 
+    //@SuppressWarnings("java:S106")
     @Override
     public Long deleteEmployee(Long id) {
         employeeService.deleteEmployee(id);

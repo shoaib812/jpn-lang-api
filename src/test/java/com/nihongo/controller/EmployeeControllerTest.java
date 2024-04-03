@@ -1,4 +1,4 @@
-package com.nihongo;
+package com.nihongo.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,8 +17,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
+
 import java.util.List;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -70,8 +70,8 @@ class EmployeeControllerTest {
 
         assertEquals(200, response.getStatus());
 
-        Map map = objectMapper.readValue(response.getContentAsString(), Map.class);
-        assertEquals(1,map.get("id"));
+        EmployeeResponse employeeResponse = objectMapper.readValue(response.getContentAsString(), EmployeeResponse.class);
+        assertEquals(1,employeeResponse.getId());
 
     }
 
@@ -99,20 +99,13 @@ class EmployeeControllerTest {
 
         assertEquals(200, response.getStatus());
 
-        Map map = objectMapper.readValue(response.getContentAsString(), Map.class);
-        assertEquals(1,map.get("id"));
+        EmployeeResponse employeeResponse = objectMapper.readValue(response.getContentAsString(), EmployeeResponse.class);
+        assertEquals(1, employeeResponse.getId());
 
     }
 
     @Test
     void deleteEmployeeTest() throws Exception {
-        EmployeeResponse employeeResponse = new EmployeeResponse();
-        employeeResponse.setId(Long.parseLong("1"));
-        employeeResponse.setUsername("Sidd");
-        employeeResponse.setMail("mohd.shoaib@gmail.com");
-        employeeResponse.setDob("20-06-1990");
-        employeeResponse.setAddress("Bareilly");
-
         Employee employee = new Employee();
         employee.setEmployeeId(Long.parseLong("1"));
         employee.setUsername("Sidd");
@@ -124,7 +117,6 @@ class EmployeeControllerTest {
 
         MockHttpServletResponse response = mockMvc.perform(delete("/employees?id=1")
                 .contentType("application/json")
-                .content(objectMapper.writeValueAsString(employeeResponse))
                 .accept("application/json")).andReturn().getResponse();
 
         assertEquals(200, response.getStatus());
@@ -147,13 +139,13 @@ class EmployeeControllerTest {
         when(employeeService.getEmployee(any())).thenReturn(List.of(employee));
 
         MockHttpServletResponse response = mockMvc.perform(get("/employees?id=1")
-                .contentType("application/json")
                 .accept("application/json")).andReturn().getResponse();
 
         assertEquals(200, response.getStatus());
 
         String jsonResponse = response.getContentAsString();
-        List<EmployeeResponse> employees = objectMapper.readValue(jsonResponse, new TypeReference<List<EmployeeResponse>>() {});
+        List<EmployeeResponse> employees = objectMapper.readValue(jsonResponse, new TypeReference<>() {
+        });
         assertEquals(1, employees.get(0).getId());
         assertEquals("Mohd Shoaib", employees.get(0).getUsername());
         assertEquals("mohd.shoaib@gmail.com", employees.get(0).getMail());

@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public interface EmployeeControllerApi {
 
     @Operation(
-            tags = "ADD Employees",
+            tags = "Employee Service",
             description = "Add Employees",
             responses = {
                     @ApiResponse(
@@ -30,7 +30,7 @@ public interface EmployeeControllerApi {
 
 
     @Operation(
-            tags = "GET Employees",
+            tags = "Employee Service",
             description = "Get Employees",
             responses = {
                     @ApiResponse(
@@ -48,7 +48,7 @@ public interface EmployeeControllerApi {
 
 
     @Operation(
-            tags = "Delete Employees",
+            tags = "Employee Service",
             description = "Delete Employees",
             responses = {
                     @ApiResponse(
@@ -65,7 +65,7 @@ public interface EmployeeControllerApi {
     Long deleteEmployee(@RequestParam(value = "id") Long id );
 
     @Operation(
-            tags = "UPDATE Employees",
+            tags = "Employee Service",
             description = "Update Employees",
             responses = {
                     @ApiResponse(
